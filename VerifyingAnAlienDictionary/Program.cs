@@ -1,36 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace VerifyingAnAlienDictionary
 {
     class Program
     {
         public static bool IsAlienSorted(string[] words, string order) {
-        
-        for(int i = 0; i<words.Length-1; i++){
-            
-            var first = words[i];
-            var second = words[i+1];
-            
-            if(!Compare(first, second, order)){
-                return false;
-            }
-        }
-        return true;
-        }
-        public static bool Compare(string first, string second, string order){
-        
-            for(int i = 0; i< Math.Min(first.Length, second.Length); i++){
-                
-                if(order.IndexOf(first[i]) == order.IndexOf(second[i]) ){
-                    continue;
-                }else if(order.IndexOf(first[i]) < order.IndexOf(second[i]) ){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-            return first.Length < second.Length;
+            var orderCorrect = "abcdefghijklmnopqrstuvwxyz";
+            var hmap = new Dictionary<char, char>();
+            var N = words.Length;
+            var wordsClone = new string[N];
+
+            for(int i = 0; i < order.Length; ++i)
+                hmap.Add(order[i], orderCorrect[i]);
+
+            Array.Copy(words, wordsClone, N);
+            Array.Sort(wordsClone, (x,y) => {
+                var sbX = new StringBuilder();
+                var sbY = new StringBuilder();
+
+                foreach(var c in x) sbX.Append(hmap[c]);
+                foreach(var c in y) sbY.Append(hmap[c]);
+
+                return sbX.ToString().CompareTo(sbY.ToString());
+            });
+
+            return words.SequenceEqual(wordsClone);
         }
     
 
