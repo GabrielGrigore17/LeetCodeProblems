@@ -23,7 +23,7 @@ namespace ValidPalindromeTwo
             if(oneChar)
                 return false;
             else
-                if(s[i+1] == s[j] && s[i] == s[j-1] && oneChar){
+                if(s[i+1] == s[j] && s[i] == s[j-1]){
                     bool left = ValidPalindrome(s.Substring(i+1, j));
                     bool right = ValidPalindrome(s.Substring(i, j-1));
                     if(left || right)
