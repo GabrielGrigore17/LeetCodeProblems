@@ -14,7 +14,6 @@ namespace HappyNumber
                     nNew += (nCopy % 10) * (nCopy % 10);
                     nCopy /= 10; 
                 }
-                Console.WriteLine(nNew);
                 if(!isLoop.Add(nNew))
                     return false;
                 n = nNew;
